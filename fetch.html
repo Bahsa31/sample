@@ -1,0 +1,71 @@
+
+<html>
+<head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"> </script>
+
+<script>
+$(document).ready(function() {
+//$("#kinput").on("click","#dis", funtion() {
+$("button").click(function(){
+    if(($("#inp").val().length)<3){
+        alert('Enter at least 3 characters'); 
+    }
+    else {     
+    var linkurl="https://www.swiggy.com/dapi/restaurants/search?lat=12.9715987&lng=77.5945627"+"&str="+$("#inp").val();
+     console.log(linkurl);   
+     var posts = [];
+   $.getJSON(linkurl, function(data) {
+       console.log('data',data);
+       console.log('data',data.data.restaurants[0].restaurants);
+       var restaurantData = data.data.restaurants[0].restaurants;
+        $.each(restaurantData, function(i, restaurant) {
+        var tblRow=
+        "<tr>" + "<td>"+ restaurant.name + "</td>"+ 
+         //"<td>" + data.tid +"<td>" + 
+        "<td>" +'<img src="' + "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/"+restaurant.cloudinaryImageId + '"/>'+
+         //data.data[i].restaurants.cloudinaryImageId +
+         //data.data[[data]]+
+          //"</td>"+ "<td>" + data.sid + "</td>"
+            //+ "<td>" + data.deviceId + "</td>"+ "<td>" + data.csrfToken + 
+            "</td>"+"</tr>";
+          $(tblRow).appendTo("#userdata tbody");
+        console.log(tblRow);
+      // console.log(i ,f); 
+     });
+    });
+  }
+});
+});
+//diable below extension before executing code
+//https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en-US
+
+//https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/
+//https://www.swiggy.com/dapi/restaurants/search?lat=16.5061743&lng=80.6480153&str=hyd
+</script>
+</head>
+
+<body>
+<br/><br/>
+<div id="kinput">
+ <input id="inp" type="text">
+ <button>button</button>
+</div>   
+<br/><br/>
+<div class="wrapper">
+<div class="profile">
+   <table id= "userdata" border="2">
+  <thead>
+            <th>Restaurant name</th>    
+            <th>Slug Image</th>
+              
+        </thead>
+      <tbody>
+
+       </tbody>
+   </table>
+
+</div>
+</div>
+
+</body>
+</html>
